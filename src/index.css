@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Portfolio Design System - Modern Dark Theme with Glassmorphism */
+
+@layer base {
+  :root {
+    /* Main Dark Theme */
+    --background: 0 0% 11%;
+    --foreground: 0 0% 100%;
+
+    /* Reversed Theme (Works Section) */
+    --background-reversed: 0 0% 97%;
+    --foreground-reversed: 0 0% 11%;
+
+    /* Glassmorphism */
+    --glass-bg: 0 0% 11% / 0.4;
+    --glass-border: 0 0% 100% / 0.1;
+    --glass-shadow: 0 0% 0% / 0.2;
+
+    /* Accents */
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 11%;
+    
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 25%;
+    --muted-foreground: 0 0% 70%;
+
+    --accent: 0 0% 95%;
+    --accent-foreground: 0 0% 11%;
+
+    --border: 0 0% 100% / 0.1;
+    --input: 0 0% 20%;
+    --ring: 0 0% 100%;
+
+    --radius: 1rem;
+
+    /* Shadows & Effects */
+    --shadow-glass: 0 8px 32px 0 hsl(var(--glass-shadow));
+    --shadow-hover: 0 20px 60px 0 hsl(0 0% 0% / 0.4);
+    
+    /* Transitions */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  /* Glassmorphism Effect */
+  .glass {
+    @apply bg-background/40 backdrop-blur-xl border border-white/10;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .glass-hover {
+    @apply glass transition-all duration-300 hover:bg-background/50 hover:border-white/20 hover:shadow-2xl;
+  }
+
+  /* Magnetic Elements */
+  .magnetic {
+    cursor: none;
+  }
+
+  /* Text Gradients */
+  .text-gradient {
+    @apply bg-gradient-to-r from-white via-white to-white/80 bg-clip-text text-transparent;
+  }
+
+  /* Smooth Transitions */
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

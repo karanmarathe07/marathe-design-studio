@@ -1,0 +1,37 @@
+/* Custom Swiper Styles for Works Section */
+
+.swiper {
+  padding-bottom: 3rem !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: rgb(28, 28, 28) !important;
+  width: 44px !important;
+  height: 44px !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-radius: 50% !important;
+  backdrop-filter: blur(10px) !important;
+  transition: all 0.3s ease !important;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: rgba(255, 255, 255, 1) !important;
+  transform: scale(1.1) !important;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 18px !important;
+  font-weight: bold !important;
+}
+
+.swiper-pagination-bullet {
+  background: rgb(28, 28, 28) !important;
+  opacity: 0.5 !important;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1 !important;
+}
