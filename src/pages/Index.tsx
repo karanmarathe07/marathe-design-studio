@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
+import TechOrbit from '@/components/TechOrbit';
 import About from '@/components/About';
 import Skills from '@/components/Skills';
 import Timeline from '@/components/Timeline';
@@ -17,6 +18,7 @@ const Index = () => {
       <SectionTransition />
       <Navbar />
       <Hero />
+      <TechOrbit />
       <About />
       <Skills />
       <Timeline />
