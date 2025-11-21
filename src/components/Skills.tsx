@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import {
   Code2,
@@ -9,27 +9,37 @@ import {
   Box,
   Blocks,
   Server,
-  Lock,
   Cpu,
 } from 'lucide-react';
 
+import javascriptIcon from '../assets/icons/javascript.png';
+import typescriptIcon from '../assets/icons/typescript.png';
+import reactIcon from '../assets/icons/react.png';
+import nodeJsIcon from '../assets/icons/node-js.png';
+import pythonIcon from '../assets/icons/python.png';
+import langchainIcon from '../assets/icons/langchain.png';
+import prismaIcon from '../assets/icons/prisma.png';
+import dockerIcon from '../assets/icons/docker.png';
+import kubernetesIcon from '../assets/icons/kubernates.png';
+import gitIcon from '../assets/icons/git.png';
+
 const skills = [
-  { name: 'JavaScript', icon: Code2 },
-  { name: 'TypeScript', icon: Code2 },
-  { name: 'React', icon: Layers },
+  { name: 'JavaScript', icon: javascriptIcon },
+  { name: 'TypeScript', icon: typescriptIcon },
+  { name: 'React', icon: reactIcon },
   { name: 'Next.js', icon: Layers },
   { name: 'Express', icon: Server },
-  { name: 'Node.js', icon: Server },
-  { name: 'Python', icon: Code2 },
-  { name: 'LangChain', icon: Blocks },
+  { name: 'Node.js', icon: nodeJsIcon },
+  { name: 'Python', icon: pythonIcon },
+  { name: 'LangChain', icon: langchainIcon },
   { name: 'LangGraph', icon: Blocks },
   { name: 'Postgres', icon: Database },
-  { name: 'Prisma', icon: Database },
+  { name: 'Prisma', icon: prismaIcon },
   { name: 'C', icon: Cpu },
-  { name: 'Docker', icon: Box },
-  { name: 'Kubernetes', icon: Box },
+  { name: 'Docker', icon: dockerIcon },
+  { name: 'Kubernetes', icon: kubernetesIcon },
   { name: 'AWS', icon: Cloud },
-  { name: 'Git', icon: GitBranch },
+  { name: 'Git', icon: gitIcon },
 ];
 
 const Skills = () => {
@@ -72,10 +82,14 @@ const Skills = () => {
                 className="glass-hover p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center gap-3 sm:gap-4 group cursor-default"
               >
                 <div className="relative">
-                  <Icon className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 text-white/80 group-hover:text-white transition-colors duration-300" />
+                  {typeof skill.icon === 'string' ? (
+                    <img src={skill.icon} alt={skill.name} className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10" />
+                  ) : (
+                    <skill.icon className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 text-white/80 group-hover:text-white transition-colors duration-300" />
+                  )}
                   <div className="absolute inset-0 bg-white/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
-                <span 
+                <span
                   className="font-medium text-center"
                   style={{
                     fontSize: 'clamp(0.75rem, 2vw, 0.875rem)',

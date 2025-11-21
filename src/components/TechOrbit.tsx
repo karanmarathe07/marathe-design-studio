@@ -1,5 +1,6 @@
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
+import { Html } from '@react-three/drei';
 import { motion, useInView } from 'framer-motion';
 import * as THREE from 'three';
 import { Code2, Database, Box, Server, Blocks, GitBranch } from 'lucide-react';
@@ -39,20 +40,21 @@ function WireframeSphere() {
 }
 
 // Orbiting Icon Component
-function OrbitingIcon({ 
-  Icon, 
-  radius, 
-  speed, 
-  offset, 
-  label 
-}: { 
-  Icon: any; 
-  radius: number; 
-  speed: number; 
+function OrbitingIcon({
+  Icon,
+  radius,
+  speed,
+  offset,
+  label
+}: {
+  Icon: any;
+  radius: number;
+  speed: number;
   offset: number;
   label: string;
 }) {
   const ref = useRef<THREE.Group>(null);
+  const [hovered, setHovered] = useState(false);
 
   useFrame((state) => {
     if (ref.current) {
@@ -61,15 +63,36 @@ function OrbitingIcon({
       ref.current.position.z = Math.sin(t) * radius;
       ref.current.position.y = Math.sin(t * 0.5) * 0.5;
       ref.current.rotation.y = -t;
+
+      // Scale effect on hover
+      const targetScale = hovered ? 1.5 : 1;
+      ref.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
     }
   });
 
   return (
     <group ref={ref}>
+      {/* Invisible larger mesh for easier hover detection */}
+      <mesh
+        onPointerOver={() => setHovered(true)}
+        onPointerOut={() => setHovered(false)}
+        visible={false}
+      >
+        <sphereGeometry args={[0.3, 16, 16]} />
+        <meshBasicMaterial transparent opacity={0} />
+      </mesh>
+
+      {/* Visible mesh */}
       <mesh>
         <sphereGeometry args={[0.15, 16, 16]} />
-        <meshBasicMaterial color="#ffffff" transparent opacity={0.9} />
+        <meshBasicMaterial
+          color="#ffffff"
+          transparent
+          opacity={hovered ? 1 : 0.9}
+        />
       </mesh>
+
+
     </group>
   );
 }
