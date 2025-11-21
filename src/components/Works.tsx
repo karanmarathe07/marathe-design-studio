@@ -102,47 +102,54 @@ const Works = () => {
     <section
       id="works"
       ref={ref}
-      className="min-h-screen px-8 py-32 relative z-20"
+      className="min-h-screen px-4 sm:px-6 md:px-8 py-20 sm:py-24 md:py-32 relative z-20"
       style={{ 
         background: '#f7f7f7',
         clipPath: 'none',
       }}
     >
-      {/* Animated Marquee */}
-      <div className="overflow-hidden mb-24">
+      {/* Animated Marquee - Responsive */}
+      <div className="overflow-hidden mb-16 sm:mb-20 md:mb-24">
         <motion.div
           ref={marqueeRef}
-          className="text-8xl md:text-[12rem] font-bold whitespace-nowrap opacity-10"
-          style={{ color: 'rgb(28, 28, 28)' }}
+          className="font-bold whitespace-nowrap opacity-10"
+          style={{ 
+            color: 'rgb(28, 28, 28)',
+            fontSize: 'clamp(3rem, 15vw, 12rem)',
+          }}
         >
           Design with logic • Design with logic • Design with logic •
         </motion.div>
       </div>
 
-      {/* Section Title */}
+      {/* Section Title - Responsive */}
       <motion.h2
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
-        className="text-5xl md:text-6xl font-bold mb-16 text-center"
-        style={{ color: 'rgb(28, 28, 28)' }}
+        className="font-bold mb-12 sm:mb-14 md:mb-16 text-center"
+        style={{ 
+          color: 'rgb(28, 28, 28)',
+          fontSize: 'clamp(2.5rem, 7vw, 4rem)',
+        }}
       >
         Selected Works
       </motion.h2>
 
-      {/* Projects Swiper */}
-      <div className="max-w-6xl mx-auto">
+      {/* Projects Swiper - Fully Responsive */}
+      <div className="max-w-7xl mx-auto">
         <Swiper
           modules={[Navigation, EffectCards]}
-          spaceBetween={30}
+          spaceBetween={20}
           slidesPerView={1}
           navigation
           breakpoints={{
-            640: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
+            640: { slidesPerView: 1, spaceBetween: 20 },
+            768: { slidesPerView: 2, spaceBetween: 24 },
+            1024: { slidesPerView: 2, spaceBetween: 28 },
+            1280: { slidesPerView: 3, spaceBetween: 30 },
           }}
-          className="pb-12"
+          className="pb-8 sm:pb-12"
         >
           {projects.map((project, index) => (
             <SwiperSlide key={index}>
@@ -152,7 +159,7 @@ const Works = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 onMouseMove={(e) => handleCardHover(e, index)}
                 onMouseLeave={handleCardLeave}
-                className="magnetic p-8 rounded-3xl h-[400px] flex flex-col justify-between relative overflow-hidden"
+                className="magnetic p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl flex flex-col justify-between relative overflow-hidden"
                 style={{
                   transformStyle: 'preserve-3d',
                   perspective: '1000px',
@@ -171,20 +178,39 @@ const Works = () => {
                     : '0 8px 32px rgba(28, 28, 28, 0.1)',
                   transition: 'box-shadow 0.3s ease',
                   clipPath: 'none',
+                  minHeight: 'clamp(350px, 50vw, 400px)',
                 }}
               >
-                {/* Card Content */}
+                {/* Card Content - Responsive Typography */}
                 <div>
-                  <h3 className="text-2xl font-bold mb-3" style={{ color: 'rgb(28, 28, 28)' }}>{project.title}</h3>
-                  <p className="mb-6" style={{ color: 'rgb(28, 28, 28)', opacity: 0.8 }}>{project.description}</p>
-                  <div className="flex flex-wrap gap-2">
+                  <h3 
+                    className="font-bold mb-2 sm:mb-3" 
+                    style={{ 
+                      color: 'rgb(28, 28, 28)',
+                      fontSize: 'clamp(1.25rem, 3vw, 1.5rem)',
+                    }}
+                  >
+                    {project.title}
+                  </h3>
+                  <p 
+                    className="mb-4 sm:mb-6" 
+                    style={{ 
+                      color: 'rgb(28, 28, 28)', 
+                      opacity: 0.8,
+                      fontSize: 'clamp(0.875rem, 2vw, 1rem)',
+                    }}
+                  >
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1 text-xs font-medium rounded-full"
+                        className="px-2 sm:px-3 py-1 font-medium rounded-full"
                         style={{ 
                           background: 'rgba(28, 28, 28, 0.1)',
                           color: 'rgb(28, 28, 28)',
+                          fontSize: 'clamp(0.75rem, 1.5vw, 0.75rem)',
                         }}
                       >
                         {tag}
@@ -193,32 +219,34 @@ const Works = () => {
                   </div>
                 </div>
 
-                {/* Links */}
-                <div className="flex gap-4">
+                {/* Links - Responsive */}
+                <div className="flex gap-3 sm:gap-4">
                   <a
                     href={project.link}
-                    className="flex items-center gap-2 text-sm transition-colors"
+                    className="flex items-center gap-1.5 sm:gap-2 transition-colors"
                     style={{ 
                       color: 'rgb(28, 28, 28)',
                       opacity: 0.8,
+                      fontSize: 'clamp(0.75rem, 2vw, 0.875rem)',
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
                     onMouseLeave={(e) => e.currentTarget.style.opacity = '0.8'}
                   >
-                    <ExternalLink className="w-4 h-4" />
+                    <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     Live Demo
                   </a>
                   <a
                     href={project.github}
-                    className="flex items-center gap-2 text-sm transition-colors"
+                    className="flex items-center gap-1.5 sm:gap-2 transition-colors"
                     style={{ 
                       color: 'rgb(28, 28, 28)',
                       opacity: 0.8,
+                      fontSize: 'clamp(0.75rem, 2vw, 0.875rem)',
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
                     onMouseLeave={(e) => e.currentTarget.style.opacity = '0.8'}
                   >
-                    <Github className="w-4 h-4" />
+                    <Github className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     Code
                   </a>
                 </div>

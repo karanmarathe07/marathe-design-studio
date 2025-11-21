@@ -93,7 +93,7 @@ const TechOrbit = () => {
     <section 
       id="tech-orbit"
       ref={ref}
-      className="relative min-h-screen flex items-center justify-center px-8 py-32 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 py-20 sm:py-24 md:py-32 overflow-hidden"
       style={{
         background: 'linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--background) / 0.95) 50%, hsl(var(--background) / 0.9) 100%)',
       }}
@@ -106,17 +106,17 @@ const TechOrbit = () => {
         className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage: 'linear-gradient(0deg, rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
-          backgroundSize: '50px 50px',
+          backgroundSize: '40px 40px',
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center justify-center gap-16">
-        {/* 3D Canvas */}
+      <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center justify-center gap-8 sm:gap-12 lg:gap-16">
+        {/* 3D Canvas - Responsive Sizing */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1, delay: 0.2 }}
-          className="w-full lg:w-1/2 h-[500px] relative"
+          className="w-full lg:w-1/2 h-[300px] sm:h-[400px] md:h-[500px] relative"
         >
           <Canvas camera={{ position: [0, 0, 8], fov: 50 }}>
             <ambientLight intensity={0.5} />
@@ -131,31 +131,41 @@ const TechOrbit = () => {
           <div className="absolute inset-0 -z-10 blur-3xl opacity-20 bg-gradient-radial from-white via-transparent to-transparent" />
         </motion.div>
 
-        {/* Text Content */}
+        {/* Text Content - Responsive Typography */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="w-full lg:w-1/2 space-y-6"
+          className="w-full lg:w-1/2 space-y-4 sm:space-y-6 text-center lg:text-left"
         >
-          <h2 className="text-5xl md:text-6xl font-bold text-foreground">
+          <h2 
+            className="font-bold text-foreground"
+            style={{
+              fontSize: 'clamp(2.5rem, 7vw, 4rem)',
+            }}
+          >
             Tech Orbit
           </h2>
-          <p className="text-xl text-foreground/70 leading-relaxed max-w-xl">
+          <p 
+            className="text-foreground/70 leading-relaxed max-w-xl mx-auto lg:mx-0"
+            style={{
+              fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
+            }}
+          >
             Tools and technologies that shape how I build experiences. 
             A constellation of modern frameworks, languages, and platforms 
             revolving around innovation.
           </p>
           
-          {/* Floating tech badges */}
-          <div className="flex flex-wrap gap-3 pt-4">
+          {/* Floating tech badges - Responsive */}
+          <div className="flex flex-wrap gap-2 sm:gap-3 pt-4 justify-center lg:justify-start">
             {['JavaScript', 'TypeScript', 'React', 'Next.js', 'Node.js', 'Python', 'Docker', 'Git'].map((tech, i) => (
               <motion.span
                 key={tech}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.6 + i * 0.1 }}
-                className="px-4 py-2 glass rounded-full text-sm font-medium text-foreground/80"
+                className="px-3 sm:px-4 py-1.5 sm:py-2 glass rounded-full text-xs sm:text-sm font-medium text-foreground/80"
               >
                 {tech}
               </motion.span>
