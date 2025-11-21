@@ -58,20 +58,23 @@ const Timeline = () => {
   }, [isInView]);
 
   return (
-    <section id="timeline" className="min-h-screen flex items-center justify-center px-8 py-32">
+    <section id="timeline" className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 py-20 sm:py-24 md:py-32">
       <div ref={ref} className="max-w-5xl w-full">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-5xl md:text-6xl font-bold mb-24 text-center"
+          className="font-bold mb-16 sm:mb-20 md:mb-24 text-center"
+          style={{
+            fontSize: 'clamp(2.5rem, 7vw, 4rem)',
+          }}
         >
           Journey
         </motion.h2>
 
         <div className="relative">
-          {/* Center Line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-white/10 -translate-x-1/2">
+          {/* Center Line - Hide on mobile */}
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-white/10 -translate-x-1/2">
             <div
               ref={lineRef}
               className="w-full h-full bg-white origin-top"
@@ -79,8 +82,8 @@ const Timeline = () => {
             />
           </div>
 
-          {/* Timeline Items */}
-          <div className="space-y-24">
+          {/* Timeline Items - Stack on mobile, alternate on desktop */}
+          <div className="space-y-12 sm:space-y-16 md:space-y-24">
             {timelineData.map((item, index) => {
               const isLeft = index % 2 === 0;
               return (
@@ -89,28 +92,56 @@ const Timeline = () => {
                   initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.6, delay: index * 0.2 }}
-                  className={`flex items-center gap-8 ${
-                    isLeft ? 'flex-row' : 'flex-row-reverse'
+                  className={`flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8 ${
+                    isLeft ? 'md:flex-row' : 'md:flex-row-reverse'
                   }`}
                 >
-                  {/* Content */}
-                  <div className={`flex-1 ${isLeft ? 'text-right' : 'text-left'}`}>
-                    <div className="glass-hover p-6 rounded-2xl inline-block">
-                      <div className="text-sm text-white/60 mb-2">{item.year}</div>
-                      <h3 className="text-2xl font-bold mb-1">{item.title}</h3>
-                      <div className="text-lg text-white/80 mb-3">{item.company}</div>
-                      <p className="text-white/70">{item.description}</p>
+                  {/* Content - Full width on mobile, half on desktop */}
+                  <div className={`w-full md:flex-1 ${isLeft ? 'md:text-right' : 'md:text-left'}`}>
+                    <div className="glass-hover p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl inline-block w-full md:w-auto">
+                      <div 
+                        className="text-foreground/60 mb-2"
+                        style={{
+                          fontSize: 'clamp(0.75rem, 2vw, 0.875rem)',
+                        }}
+                      >
+                        {item.year}
+                      </div>
+                      <h3 
+                        className="font-bold mb-1"
+                        style={{
+                          fontSize: 'clamp(1.125rem, 3vw, 1.5rem)',
+                        }}
+                      >
+                        {item.title}
+                      </h3>
+                      <div 
+                        className="text-foreground/80 mb-3"
+                        style={{
+                          fontSize: 'clamp(1rem, 2.5vw, 1.125rem)',
+                        }}
+                      >
+                        {item.company}
+                      </div>
+                      <p 
+                        className="text-foreground/70"
+                        style={{
+                          fontSize: 'clamp(0.875rem, 2vw, 1rem)',
+                        }}
+                      >
+                        {item.description}
+                      </p>
                     </div>
                   </div>
 
-                  {/* Center Dot */}
-                  <div className="relative z-10">
+                  {/* Center Dot - Hide on mobile */}
+                  <div className="hidden md:block relative z-10">
                     <div className="w-4 h-4 bg-white rounded-full" />
                     <div className="absolute inset-0 bg-white/30 rounded-full animate-ping" />
                   </div>
 
-                  {/* Spacer */}
-                  <div className="flex-1" />
+                  {/* Spacer - Only on desktop */}
+                  <div className="hidden md:block flex-1" />
                 </motion.div>
               );
             })}

@@ -54,7 +54,7 @@ const About = () => {
   }, [isInView]);
 
   return (
-    <section id="about" className="relative min-h-screen flex items-center justify-center px-8 py-32 overflow-hidden">
+    <section id="about" className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 py-20 sm:py-24 md:py-32 overflow-hidden">
       {/* Parallax Background Elements */}
       <div ref={backgroundRef} className="absolute inset-0 pointer-events-none overflow-hidden opacity-5">
         <div className="absolute top-20 left-10 text-8xl font-bold text-white">&lt;/&gt;</div>
@@ -77,44 +77,60 @@ const About = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-5xl md:text-6xl font-bold mb-16"
+          className="font-bold mb-10 sm:mb-12 md:mb-16"
+          style={{
+            fontSize: 'clamp(2.5rem, 7vw, 4rem)',
+          }}
         >
           About Me
         </motion.h2>
 
-        {/* Two Column Layout */}
-        <div className="grid lg:grid-cols-2 gap-16">
-          {/* Left: Text Content */}
+        {/* Responsive Layout - Stack on mobile, 2-col on desktop */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16">
+          {/* Left: Text Content - Responsive Typography */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="space-y-6"
+            className="space-y-4 sm:space-y-6"
           >
-            <div className="space-y-6 text-lg md:text-xl text-foreground/80 leading-relaxed">
-              <p className="text-xl md:text-2xl font-medium text-foreground">
+            <div className="space-y-4 sm:space-y-6 text-foreground/80 leading-relaxed">
+              <p 
+                className="font-medium text-foreground"
+                style={{
+                  fontSize: 'clamp(1.125rem, 3vw, 1.5rem)',
+                }}
+              >
                 I'm a full-stack developer who bridges design and engineering to create 
                 exceptional digital experiences.
               </p>
-              <p>
+              <p
+                style={{
+                  fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
+                }}
+              >
                 My approach combines technical precision with creative vision—building 
                 modern, animated, and logic-driven web applications that don't just work, 
                 but feel alive. From pixel-perfect interfaces to robust backend systems, 
                 I craft solutions that users love and businesses depend on.
               </p>
-              <p>
+              <p
+                style={{
+                  fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
+                }}
+              >
                 With expertise spanning React, TypeScript, Node.js, and cloud infrastructure, 
                 I transform complex ideas into elegant, scalable products. Every project is 
                 an opportunity to push boundaries and solve real problems with code.
               </p>
             </div>
 
-            {/* Keyword Cloud */}
+            {/* Keyword Cloud - Responsive */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="flex flex-wrap gap-3 pt-6"
+              className="flex flex-wrap gap-2 sm:gap-3 pt-4 sm:pt-6"
             >
               {keywords.map((keyword, i) => (
                 <motion.span
@@ -123,7 +139,7 @@ const About = () => {
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.4, delay: 0.9 + i * 0.05 }}
                   whileHover={{ y: -3, scale: 1.05 }}
-                  className="px-4 py-2 glass rounded-full text-sm font-medium text-foreground/70 cursor-default"
+                  className="px-3 sm:px-4 py-1.5 sm:py-2 glass rounded-full text-xs sm:text-sm font-medium text-foreground/70 cursor-default"
                   style={{
                     animation: `float ${3 + (i % 3)}s ease-in-out infinite`,
                     animationDelay: `${i * 0.1}s`,
@@ -135,15 +151,22 @@ const About = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right: What I Do Cards */}
+          {/* Right: What I Do Cards - Responsive */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="space-y-6"
+            className="space-y-4 sm:space-y-6"
           >
-            <h3 className="text-2xl md:text-3xl font-bold mb-8 text-foreground">What I Do</h3>
-            <div className="grid gap-6">
+            <h3 
+              className="font-bold mb-6 sm:mb-8 text-foreground"
+              style={{
+                fontSize: 'clamp(1.5rem, 4vw, 2rem)',
+              }}
+            >
+              What I Do
+            </h3>
+            <div className="grid gap-4 sm:gap-6">
               {whatIDo.map((item, index) => {
                 const Icon = item.icon;
                 return (
@@ -157,16 +180,30 @@ const About = () => {
                       scale: 1.02,
                       transition: { duration: 0.2 }
                     }}
-                    className="glass-hover p-6 rounded-2xl group cursor-default"
+                    className="glass-hover p-4 sm:p-6 rounded-2xl group cursor-default"
                   >
-                    <div className="flex items-start gap-4">
+                    <div className="flex items-start gap-3 sm:gap-4">
                       <div className="relative flex-shrink-0">
-                        <Icon className="w-8 h-8 text-foreground/80 group-hover:text-foreground transition-colors duration-300" />
+                        <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-foreground/80 group-hover:text-foreground transition-colors duration-300" />
                         <div className="absolute inset-0 bg-white/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </div>
                       <div>
-                        <h4 className="text-lg font-bold mb-2 text-foreground">{item.title}</h4>
-                        <p className="text-sm text-foreground/70">{item.description}</p>
+                        <h4 
+                          className="font-bold mb-1.5 sm:mb-2 text-foreground"
+                          style={{
+                            fontSize: 'clamp(1rem, 2.5vw, 1.125rem)',
+                          }}
+                        >
+                          {item.title}
+                        </h4>
+                        <p 
+                          className="text-foreground/70"
+                          style={{
+                            fontSize: 'clamp(0.875rem, 2vw, 0.875rem)',
+                          }}
+                        >
+                          {item.description}
+                        </p>
                       </div>
                     </div>
                   </motion.div>
