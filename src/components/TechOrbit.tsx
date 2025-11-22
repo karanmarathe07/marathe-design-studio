@@ -1,40 +1,24 @@
 import { useRef, useMemo, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Html } from '@react-three/drei';
+import { Environment } from '@react-three/drei';
 import { motion, useInView } from 'framer-motion';
 import * as THREE from 'three';
 import { Code2, Database, Box, Server, Blocks, GitBranch } from 'lucide-react';
 
-// Wireframe Sphere Component
-function WireframeSphere() {
-  const meshRef = useRef<THREE.Mesh>(null);
-  
+// Earth Component - Spherical Earth
+function Earth() {
+  const ref = useRef<THREE.Mesh>(null);
+
   useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y += 0.002;
-      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
+    if (ref.current) {
+      ref.current.rotation.y += 0.005;
     }
   });
 
   return (
-    <mesh ref={meshRef}>
-      <sphereGeometry args={[2, 32, 32]} />
-      <meshBasicMaterial
-        color="#ffffff"
-        wireframe
-        transparent
-        opacity={0.15}
-      />
-      {/* Glow effect */}
-      <mesh scale={1.02}>
-        <sphereGeometry args={[2, 32, 32]} />
-        <meshBasicMaterial
-          color="#ffffff"
-          transparent
-          opacity={0.05}
-          side={THREE.BackSide}
-        />
-      </mesh>
+    <mesh ref={ref} scale={1.5}>
+      <sphereGeometry args={[1, 32, 32]} />
+      <meshStandardMaterial color="#4A90E2" />
     </mesh>
   );
 }
@@ -142,14 +126,15 @@ const TechOrbit = () => {
           className="w-full lg:w-1/2 h-[300px] sm:h-[400px] md:h-[500px] relative"
         >
           <Canvas camera={{ position: [0, 0, 8], fov: 50 }}>
-            <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} intensity={1} />
-            <WireframeSphere />
+            <ambientLight intensity={1} />
+            <directionalLight intensity={2} />
+            <Environment preset="sunset" />
+            <Earth />
             {techStack.map((tech, i) => (
               <OrbitingIcon key={i} {...tech} />
             ))}
           </Canvas>
-          
+
           {/* Glow effect behind canvas */}
           <div className="absolute inset-0 -z-10 blur-3xl opacity-20 bg-gradient-radial from-white via-transparent to-transparent" />
         </motion.div>
